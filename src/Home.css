@@ -7,6 +7,7 @@
     border-radius: 50%;
     border: none;
   }
+  
 *{
   overflow: hidden;
 }
@@ -177,4 +178,16 @@
     cursor: pointer;
     color: white;
     font-size: 60px;
+  }
+
+  .video-header{
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .video-header > span {
+    font-size: 35px;
   }

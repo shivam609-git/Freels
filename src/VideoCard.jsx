@@ -46,11 +46,37 @@ let VideoCard = (props) => {
       }}
         src={props.post.url}
       ></video>
+{/* 
+<div className="video-header">
+        <span class="material-icons-outlined" style={{
+          color: "white", position: "absolute",
+          left: "0px", cursor: "pointer"
+        }}>
+          chevron_left
+        </span>
 
-      <span class="material-icons-outlined" style={{ color: "white" , position: "absolute" ,
-    left : "0px" }}>
-        chevron_left
-      </span>
+        <h3 style={{
+          color: "black", position: "absolute",
+          top: "0px"
+        }}> <b>Freels</b> </h3>
+        <span class="material-icons-outlined">
+                photo_camera
+              </span>
+      </div> */}
+
+      <div className="video-header">
+        <span class="material-icons-outlined" style={{cursor: "pointer"
+        }}>
+          chevron_left
+        </span>
+
+        <h2> <b>Freels</b> </h2>
+        <span class="material-icons-outlined" style={{cursor: "pointer"
+        }}>
+videocam
+</span>
+      </div>
+
 
       <span class="material-icons-outlined like">favorite_border</span>
       <span class="material-icons-outlined comment" style={{ color: "black" }} onClick={() => {
