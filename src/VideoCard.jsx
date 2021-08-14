@@ -73,7 +73,7 @@ let VideoCard = (props) => {
           chevron_left
         </span></Link>
 
-        <h2> <b> Freels</b> </h2>
+        <h2> <b> Reels</b> </h2>
        
         <span class="material-icons-outlined" style={{
           cursor: "pointer"
