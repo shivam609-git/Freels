@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { firestore } from "./firebase";
 
 import { AuthContext } from "./AuthProvider";
+import { Link,Redirect } from "react-router-dom";
 
 let VideoCard = (props) => {
   let [boxOpen, setBoxOpen] = useState(false);
@@ -45,8 +46,9 @@ let VideoCard = (props) => {
         }
       }}
         src={props.post.url}
+        loop
       ></video>
-{/* 
+      {/* 
 <div className="video-header">
         <span class="material-icons-outlined" style={{
           color: "white", position: "absolute",
@@ -65,27 +67,45 @@ let VideoCard = (props) => {
       </div> */}
 
       <div className="video-header">
-        <span class="material-icons-outlined" style={{cursor: "pointer"
-        }}>
+        <Link  to="/profile" ><span class="material-icons-outlined"style={{
+           cursor: "pointer",color : "white",fontSize : 34
+        }} >
           chevron_left
-        </span>
+        </span></Link>
 
-        <h2> <b>Freels</b> </h2>
-        <span class="material-icons-outlined" style={{cursor: "pointer"
+        <h2> <b> Freels</b> </h2>
+       
+        <span class="material-icons-outlined" style={{
+          cursor: "pointer"
         }}>
-videocam
-</span>
+          videocam
+        </span>
       </div>
 
 
-      <span class="material-icons-outlined like">favorite_border</span>
+      <span class="material-icons-outlined like" onClick = {() =>{
+      }
+
+      }>favorite_border</span>
       <span class="material-icons-outlined comment" style={{ color: "black" }} onClick={() => {
         if (boxOpen) setBoxOpen(false);
         else setBoxOpen(true);
       }}>
         chat_bubble_outline
       </span>
-      <span class="material-icons-outlined share" style={{ color: "black" }}>
+      <span class="material-icons-outlined share" style={{ color: "black" }} onClick = {() => {
+        
+          if (navigator.share) { 
+           navigator.share({
+              title: Math.floor(Date.now()  / 1e5),
+              url: props.post.url
+            }).then(() => {
+              console.log('Thanks for sharing!');
+            })
+            .catch(console.error);
+            }
+          }}
+        >
         send
       </span>
 
