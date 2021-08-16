@@ -1,14 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { firestore } from "./firebase";
 
 import { AuthContext } from "./AuthProvider";
-import { Link,Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 let VideoCard = (props) => {
   let [boxOpen, setBoxOpen] = useState(false);
-  let [playing, setPlaying] = useState(false);
+  let [playing, setPlaying] = useState(true);
   let [currentUserComment, setCurrentUserComment] = useState("");
   let [allComments, setAllComments] = useState([]);
+  let [like, setLike] = useState(false);
+  let videoRef = useRef(null);
 
   let value = useContext(AuthContext);
 
@@ -31,22 +33,49 @@ let VideoCard = (props) => {
     f();
   }, [props]);
 
+const observer = new IntersectionObserver(entries =>{
+  entries.forEach(entry =>{
+    //entry.intersectionRatio > 0.5 ? entry.target.play() : entry.target.pause()
+    entry.intersectionRatio > 0.5 && !playing ?  entry.target.play() : entry.target.pause()
+    // entry.intersectionRatio > 0.5 && !playing ?  setPlaying(true) : setPlaying(false)
+  })
+})
+const videos = document.querySelectorAll('video');
+videos.forEach(video =>{
+  observer.observe(video);
+})
+
+
 
   return (
     <div className="video-card">
 
       {/* <video src="https://www.youtube.com/watch?v=Cp2GPuhQrjw"></video> */}
-      <video onClick={(e) => {
+      <video 
+      onClick={(e) => {
         if (playing) {
           setPlaying(false);
           e.currentTarget.pause();
+          // videoRef.current.pause();
         } else {
           setPlaying(true);
           e.currentTarget.play();
+          // videoRef.current.play();
         }
-      }}
+      }} 
+      // onScroll = { (e) => {
+      //   if(e.intersectionRatio != 0.5 && !playing) {
+      //     videoRef.current.pause();
+      //     setPlaying(true);
+      //   } else if (playing) {
+      //     videoRef.current.play();
+      //     setPlaying(false);
+      //   }
+      // }}
         src={props.post.url}
         loop
+        ref={videoRef}
+
       ></video>
       {/* 
 <div className="video-header">
@@ -67,15 +96,15 @@ let VideoCard = (props) => {
       </div> */}
 
       <div className="video-header">
-        <Link  to="/profile" ><span class="material-icons-outlined"style={{
-           cursor: "pointer",color : "white",fontSize : 34
+        <Link to="/profile" ><span class="material-icons-outlined" style={{
+          cursor: "pointer", color: "white", fontSize: 34
         }} >
           chevron_left
         </span></Link>
 
         <h2> <b> Reels</b> </h2>
-       
-        <span class="material-icons-outlined" style={{
+
+        <span class="material-icons-outlined hide" style={{
           cursor: "pointer"
         }}>
           videocam
@@ -83,29 +112,35 @@ let VideoCard = (props) => {
       </div>
 
 
-      <span class="material-icons-outlined like" onClick = {() =>{
+      <span class="material-icons-outlined like response-phone" onClick={() => {
+          if(!like){
+            setLike(true);
+
+          }else{
+            setLike(false)
+          }
       }
 
       }>favorite_border</span>
-      <span class="material-icons-outlined comment" style={{ color: "black" }} onClick={() => {
+      <span class="material-icons-outlined comment response-phone" style={{ color: "black" }} onClick={() => {
         if (boxOpen) setBoxOpen(false);
         else setBoxOpen(true);
       }}>
         chat_bubble_outline
       </span>
-      <span class="material-icons-outlined share" style={{ color: "black" }} onClick = {() => {
-        
-          if (navigator.share) { 
-           navigator.share({
-              title: Math.floor(Date.now()  / 1e5),
-              url: props.post.url
-            }).then(() => {
-              console.log('Thanks for sharing!');
-            })
+      <span class="material-icons-outlined share response-phone" style={{ color: "black" }} onClick={() => {
+
+        if (navigator.share) {
+          navigator.share({
+            title: Math.floor(Date.now() / 1e5),
+            url: props.post.url
+          }).then(() => {
+            console.log('Thanks for sharing!');
+          })
             .catch(console.error);
-            }
-          }}
-        >
+        }
+      }}
+      >
         send
       </span>
 
@@ -180,6 +215,18 @@ let VideoCard = (props) => {
       ) : (
         ""
       )}
+
+{/* //Like Feature */}
+     { like ? (<span class="material-icons-outlined like response-phone" onClick={() => {
+          if(like){
+            setLike(false);
+
+          }else{
+            setLike(true)
+          }
+      }}>
+favorite
+</span>) : ("")}
     </div>
   );
 };

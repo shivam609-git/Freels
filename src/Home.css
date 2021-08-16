@@ -20,8 +20,8 @@
     width: 4rem;
     border-radius: 50%;
     border: none;
-  }
-  
+}
+
   .upload-btn {
     position: fixed;
     bottom: 3rem;
@@ -191,3 +191,54 @@
   .video-header > span {
     font-size: 35px;
   }
+/* for mobile responsive/** */
+  @media only screen and (max-width: 480px) { 
+    #profile{
+      position: absolute;
+      right: 0;
+      font-size: 60%;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50%;
+      border: none;
+      bottom: 15rem;
+    }
+
+    .logout-btn{
+      position: absolute;
+      right: 0;
+      font-size: 60%;
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50%;
+      border: none;
+      bottom: 12rem;
+    }
+    .response-phone{
+      position: fixed;
+      right: 0;
+    }
+    /*This hide is only for resposive video icon  */
+.hide{
+  display: none;
+}
+
+    .video-header{
+      width: 50%;
+      position: absolute;
+      top: 0px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .toupload{
+      position: fixed;
+      top: 0rem;
+      right: 0rem;
+      display: block;
+      cursor: pointer;
+      color: white;
+      font-size: 35px;
+    }
+
+  }
+
