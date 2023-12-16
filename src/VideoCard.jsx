@@ -122,13 +122,13 @@ videos.forEach(video =>{
       }
 
       }>favorite_border</span>
-      <span class="material-icons-outlined comment response-phone" style={{ color: "black" }} onClick={() => {
+      <span class="material-icons-outlined comment response-phone" style={{ color: "white" }} onClick={() => {
         if (boxOpen) setBoxOpen(false);
         else setBoxOpen(true);
       }}>
         chat_bubble_outline
       </span>
-      <span class="material-icons-outlined share response-phone" style={{ color: "black" }} onClick={() => {
+      <span class="material-icons-outlined share response-phone" style={{ color: "white" }} onClick={() => {
 
         if (navigator.share) {
           navigator.share({
