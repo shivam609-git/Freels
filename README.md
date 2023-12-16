@@ -1,6 +1,6 @@
 # Freels : Feel Free to Play
 
 `CheckOut the DEMO`
-https://reelsfire-3db9a.web.app
+https://reels-3db9a.web.app/home
 
 npm install  ........npm start
